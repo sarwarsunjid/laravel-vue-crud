@@ -15,6 +15,7 @@ class TelController extends Controller
     public function index()
     {
         //
+        return Tell::all();
     }
 
     /**
@@ -26,6 +27,14 @@ class TelController extends Controller
     public function store(Request $request)
     {
         //
+        $request = ([
+            'name' = 'required',
+            'phone' = 'required'
+        ]);
+
+        Tel::create($request->all());
+
+        return response('', 200);
     }
 
     /**
@@ -36,7 +45,7 @@ class TelController extends Controller
      */
     public function show(Tel $tel)
     {
-        //
+        return $tel;
     }
 
     /**
@@ -48,7 +57,14 @@ class TelController extends Controller
      */
     public function update(Request $request, Tel $tel)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'tel' => 'required'
+        ]);
+
+        $tel->update($request->all());
+
+        return response('', 200);
     }
 
     /**
@@ -59,6 +75,7 @@ class TelController extends Controller
      */
     public function destroy(Tel $tel)
     {
-        //
+        $tel->delete();
+        return response('', 204);
     }
 }
