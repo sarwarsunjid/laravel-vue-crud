@@ -23,7 +23,10 @@
                 >
             </div>
             <div class="d-grid">
-                <button class="btn btn-success btn-block">
+                <button 
+                    class="btn btn-success btn-block"
+                    @click="save"  
+                >
                     Save
                 </button>
             </div>
@@ -39,12 +42,24 @@ export default {
         return {
             // myName: "Perosonal Contact"
             lists: [],
-            item:{
+            item: {
                 name:"",
                 phone:""
             }
         }
-    }
+    },
+     methods: {
+         save() {
+             try{
+                 axios.post('/api/tel', this.item)
+                 .then(res=> {
+
+                 })   
+             } catch (e) {
+                 console.log(e)
+             }
+         }
+     }
 }
 </script>
 

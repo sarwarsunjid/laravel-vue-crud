@@ -1879,6 +1879,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Directory',
   data: function data() {
@@ -1890,6 +1893,15 @@ __webpack_require__.r(__webpack_exports__);
         phone: ""
       }
     };
+  },
+  methods: {
+    save: function save() {
+      try {
+        axios.post('/api/tel', this.item).then(function (res) {});
+      } catch (e) {
+        console.log(e);
+      }
+    }
   }
 });
 
@@ -37602,22 +37614,17 @@ var render = function() {
         })
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "d-grid" }, [
+        _c(
+          "button",
+          { staticClass: "btn btn-success btn-block", on: { click: _vm.save } },
+          [_vm._v("\n                Save\n            ")]
+        )
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "d-grid" }, [
-      _c("button", { staticClass: "btn btn-success btn-block" }, [
-        _vm._v("\n                Save\n            ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
