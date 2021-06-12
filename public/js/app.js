@@ -1890,7 +1890,7 @@ __webpack_require__.r(__webpack_exports__);
       lists: [],
       item: {
         name: "",
-        phone: ""
+        tel: ""
       }
     };
   },
@@ -37592,23 +37592,19 @@ var render = function() {
             {
               name: "model",
               rawName: "v-model",
-              value: _vm.item.phone,
-              expression: "item.phone"
+              value: _vm.item.tel,
+              expression: "item.tel"
             }
           ],
           staticClass: "form-control",
-          attrs: {
-            type: "text",
-            placeholder: "Enter Phone Number",
-            id: "phone"
-          },
-          domProps: { value: _vm.item.phone },
+          attrs: { type: "text", placeholder: "Enter Phone Number", id: "tel" },
+          domProps: { value: _vm.item.tel },
           on: {
             input: function($event) {
               if ($event.target.composing) {
                 return
               }
-              _vm.$set(_vm.item, "phone", $event.target.value)
+              _vm.$set(_vm.item, "tel", $event.target.value)
             }
           }
         })

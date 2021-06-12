@@ -15,7 +15,7 @@ class TelController extends Controller
     public function index()
     {
         //
-        return Tell::all();
+        return Tel::all();
     }
 
     /**
@@ -26,10 +26,9 @@ class TelController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        $request = ([
-            'name' = 'required',
-            'phone' = 'required'
+        $request->validate([
+            'name' => 'required',
+            'tel' => 'required'
         ]);
 
         Tel::create($request->all());

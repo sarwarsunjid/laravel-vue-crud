@@ -10,4 +10,9 @@ class Tel extends Model
     use HasFactory;
 
     protected $guarded = [];
+
+    protected $fillable = [
+        'name',
+        'tel',
+    ];
 }

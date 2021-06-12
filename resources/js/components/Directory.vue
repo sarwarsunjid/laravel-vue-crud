@@ -18,8 +18,8 @@
                     type="text"
                     placeholder="Enter Phone Number"
                     class="form-control"
-                    id="phone"
-                    v-model="item.phone"
+                    id="tel"
+                    v-model="item.tel"
                 >
             </div>
             <div class="d-grid">
@@ -44,7 +44,7 @@ export default {
             lists: [],
             item: {
                 name:"",
-                phone:""
+                tel:""
             }
         }
     },
