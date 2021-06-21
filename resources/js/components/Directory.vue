@@ -45,7 +45,9 @@
                                 View
                             </button>
                             <button 
-                                class="btn btn-danger btn-sm mr-2">
+                                class="btn btn-danger btn-sm mr-2"
+                                @click="deleteTel(item.id)"
+                                >
                                 Delete
                             </button>
                         </span>
@@ -88,9 +90,17 @@ export default {
              } catch (e) {
                  console.log(e)
              }
+         },
+         deleteTel(id){
+             try{
+                 axios.delete(`/api/tel/${id}`)
+                 .then(res => this.fetchAll())   
+             } catch (e) {
+                 //console.log(e)
+             }
+         }
          }
      }
-}
 </script>
 
 <style>

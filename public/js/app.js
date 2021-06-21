@@ -1905,6 +1905,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Directory',
   data: function data() {
@@ -1933,6 +1935,16 @@ __webpack_require__.r(__webpack_exports__);
         axios.post('/api/tel', this.item).then(function (res) {});
       } catch (e) {
         console.log(e);
+      }
+    },
+    deleteTel: function deleteTel(id) {
+      var _this2 = this;
+
+      try {
+        axios["delete"]("/api/tel/".concat(id)).then(function (res) {
+          return _this2.fetchAll();
+        });
+      } catch (e) {//console.log(e)
       }
     }
   }
@@ -37672,7 +37684,34 @@ var render = function() {
                         _vm._s(item.tel) +
                         "\n                    "
                     ),
-                    _vm._m(0, true)
+                    _c("span", { staticClass: "float-right" }, [
+                      _c(
+                        "button",
+                        { staticClass: "btn btn-warning btn-sm mr-2" },
+                        [
+                          _vm._v(
+                            "\n                            View\n                        "
+                          )
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-danger btn-sm mr-2",
+                          on: {
+                            click: function($event) {
+                              return _vm.deleteTel(item.id)
+                            }
+                          }
+                        },
+                        [
+                          _vm._v(
+                            "\n                            Delete\n                        "
+                          )
+                        ]
+                      )
+                    ])
                   ]
                 )
               }),
@@ -37683,22 +37722,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("span", { staticClass: "float-right" }, [
-      _c("button", { staticClass: "btn btn-warning btn-sm mr-2" }, [
-        _vm._v("\n                            View\n                        ")
-      ]),
-      _vm._v(" "),
-      _c("button", { staticClass: "btn btn-danger btn-sm mr-2" }, [
-        _vm._v("\n                            Delete\n                        ")
-      ])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
