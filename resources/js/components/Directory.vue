@@ -27,7 +27,7 @@
                     class="btn btn-success btn-block"
                     @click="save"  
                 >
-                    Save
+                    {{isEditing ? 'Update':'Save'}}
                 </button>
             </div>
             <div class="col-md-12 mt-3" v-if="lists.length > 0">
@@ -41,8 +41,10 @@
                         {{ item.name }} - {{item.tel}}
                         <span class="float-right">
                             <button 
-                                class="btn btn-warning btn-sm mr-2">
-                                View
+                                class="btn btn-warning btn-sm mr-2"
+                                @click="editTel(item)"
+                                >
+                                Edit
                             </button>
                             <button 
                                 class="btn btn-danger btn-sm mr-2"
@@ -70,7 +72,9 @@ export default {
             item: {
                 name:"",
                 tel:""
-            }
+            },
+            temp_id: null,
+            isEditing: false
         }
     },
     mounted() {
@@ -81,11 +85,31 @@ export default {
              axios.get('/api/tel')
                  .then(res => this.lists = res.data)
          },
+         editTel(tel) {
+            this.item = {
+                name: tel.name,
+                tel: tel.tel,
+            }
+            this.temp_id = tel.id;
+            this.isEditing = true
+        },
          save() {
+             let method = axios.post;
+             let url = '/api/tel';
+             if(this.isEditing){
+                 method = axios.put;
+                 url = `/api/tel/${this.temp_id}`
+             }
              try{
-                 axios.post('/api/tel', this.item)
+                 method(url, this.item)
                  .then(res=> {
-
+                     this.fetchAll();
+                     this.item = {
+                        name:"",
+                        tel:""
+                    },
+                    this.temp_id = null;
+                    this.isEditing = false;
                  })   
              } catch (e) {
                  console.log(e)
@@ -96,7 +120,7 @@ export default {
                  axios.delete(`/api/tel/${id}`)
                  .then(res => this.fetchAll())   
              } catch (e) {
-                 //console.log(e)
+                 console.log(e)
              }
          }
          }

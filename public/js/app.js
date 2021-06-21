@@ -1907,6 +1907,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Directory',
   data: function data() {
@@ -1916,7 +1918,9 @@ __webpack_require__.r(__webpack_exports__);
       item: {
         name: "",
         tel: ""
-      }
+      },
+      temp_id: null,
+      isEditing: false
     };
   },
   mounted: function mounted() {
@@ -1930,21 +1934,48 @@ __webpack_require__.r(__webpack_exports__);
         return _this.lists = res.data;
       });
     },
+    editTel: function editTel(tel) {
+      this.item = {
+        name: tel.name,
+        tel: tel.tel
+      };
+      this.temp_id = tel.id;
+      this.isEditing = true;
+    },
     save: function save() {
+      var _this2 = this;
+
+      var method = axios.post;
+      var url = '/api/tel';
+
+      if (this.isEditing) {
+        method = axios.put;
+        url = "/api/tel/".concat(this.temp_id);
+      }
+
       try {
-        axios.post('/api/tel', this.item).then(function (res) {});
+        method(url, this.item).then(function (res) {
+          _this2.fetchAll();
+
+          _this2.item = {
+            name: "",
+            tel: ""
+          }, _this2.temp_id = null;
+          _this2.isEditing = false;
+        });
       } catch (e) {
         console.log(e);
       }
     },
     deleteTel: function deleteTel(id) {
-      var _this2 = this;
+      var _this3 = this;
 
       try {
         axios["delete"]("/api/tel/".concat(id)).then(function (res) {
-          return _this2.fetchAll();
+          return _this3.fetchAll();
         });
-      } catch (e) {//console.log(e)
+      } catch (e) {
+        console.log(e);
       }
     }
   }
@@ -37659,7 +37690,13 @@ var render = function() {
         _c(
           "button",
           { staticClass: "btn btn-success btn-block", on: { click: _vm.save } },
-          [_vm._v("\n                Save\n            ")]
+          [
+            _vm._v(
+              "\n                " +
+                _vm._s(_vm.isEditing ? "Update" : "Save") +
+                "\n            "
+            )
+          ]
         )
       ]),
       _vm._v(" "),
@@ -37687,10 +37724,17 @@ var render = function() {
                     _c("span", { staticClass: "float-right" }, [
                       _c(
                         "button",
-                        { staticClass: "btn btn-warning btn-sm mr-2" },
+                        {
+                          staticClass: "btn btn-warning btn-sm mr-2",
+                          on: {
+                            click: function($event) {
+                              return _vm.editTel(item)
+                            }
+                          }
+                        },
                         [
                           _vm._v(
-                            "\n                            View\n                        "
+                            "\n                            Edit\n                        "
                           )
                         ]
                       ),
