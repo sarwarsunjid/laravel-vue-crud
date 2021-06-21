@@ -1882,6 +1882,29 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Directory',
   data: function data() {
@@ -1894,7 +1917,17 @@ __webpack_require__.r(__webpack_exports__);
       }
     };
   },
+  mounted: function mounted() {
+    this.fetchAll();
+  },
   methods: {
+    fetchAll: function fetchAll() {
+      var _this = this;
+
+      axios.get('/api/tel').then(function (res) {
+        return _this.lists = res.data;
+      });
+    },
     save: function save() {
       try {
         axios.post('/api/tel', this.item).then(function (res) {});
@@ -37616,11 +37649,56 @@ var render = function() {
           { staticClass: "btn btn-success btn-block", on: { click: _vm.save } },
           [_vm._v("\n                Save\n            ")]
         )
-      ])
+      ]),
+      _vm._v(" "),
+      _vm.lists.length > 0
+        ? _c("div", { staticClass: "col-md-12 mt-3" }, [
+            _c("h2", { staticClass: "text-center" }, [
+              _vm._v("Telephone Numbers")
+            ]),
+            _vm._v(" "),
+            _c(
+              "ul",
+              { staticClass: "list-group" },
+              _vm._l(_vm.lists, function(item) {
+                return _c(
+                  "li",
+                  { key: item.id, staticClass: "list-group-item" },
+                  [
+                    _vm._v(
+                      "\n                    " +
+                        _vm._s(item.name) +
+                        " - " +
+                        _vm._s(item.tel) +
+                        "\n                    "
+                    ),
+                    _vm._m(0, true)
+                  ]
+                )
+              }),
+              0
+            )
+          ])
+        : _vm._e()
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("span", { staticClass: "float-right" }, [
+      _c("button", { staticClass: "btn btn-warning btn-sm mr-2" }, [
+        _vm._v("\n                            View\n                        ")
+      ]),
+      _vm._v(" "),
+      _c("button", { staticClass: "btn btn-danger btn-sm mr-2" }, [
+        _vm._v("\n                            Delete\n                        ")
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 

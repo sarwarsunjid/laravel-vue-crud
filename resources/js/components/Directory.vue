@@ -30,6 +30,29 @@
                     Save
                 </button>
             </div>
+            <div class="col-md-12 mt-3" v-if="lists.length > 0">
+                <h2 class="text-center">Telephone Numbers</h2>
+                <ul class="list-group">
+                    <li 
+                        class="list-group-item"
+                        v-for="item in lists"
+                        :key="item.id"
+                        >
+                        {{ item.name }} - {{item.tel}}
+                        <span class="float-right">
+                            <button 
+                                class="btn btn-warning btn-sm mr-2">
+                                View
+                            </button>
+                            <button 
+                                class="btn btn-danger btn-sm mr-2">
+                                Delete
+                            </button>
+                        </span>
+
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     
@@ -48,7 +71,14 @@ export default {
             }
         }
     },
-     methods: {
+    mounted() {
+        this.fetchAll();
+    },
+     methods: { 
+         fetchAll(){
+             axios.get('/api/tel')
+                 .then(res => this.lists = res.data)
+         },
          save() {
              try{
                  axios.post('/api/tel', this.item)
